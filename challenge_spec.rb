@@ -24,3 +24,56 @@ RSpec.describe Sensor do
 		end
 	end
 end
+
+RSpec.describe Vehicle do
+	describe "#getStartPoint" do
+		it "returns the start point" do
+			startPoint = 2
+			vehicle = Vehicle.new(startPoint, 7)
+			expect(vehicle.getStartPoint).to eq(startPoint)
+		end
+	end
+	describe "#getEndPoint" do
+		it "returns the end point" do
+			endPoint = 8
+			vehicle = Vehicle.new(2, endPoint)
+			expect(vehicle.getEndPoint).to eq(endPoint)
+		end
+	end
+	describe "#getTraversal" do
+		it "returns the traversal list" do
+			error = 1
+			startPoint = 2
+			endPoint = 8
+			landmarks = [1,5,12,18,25]
+			street = Street.new(landmarks)
+			vehicle = Vehicle.new(startPoint, endPoint)
+			sensor = Sensor.new(error)
+			vehicle.traverse(street, sensor)
+			expect(vehicle.getTraversal.length).to be > 0
+		end
+	end
+	describe "#getTraversal" do
+		it "the length of the traversal list should match the length difference between start and end points plus 1" do
+			error = 1
+			startPoint = 2
+			endPoint = 8
+			landmarks = [1,5,12,18,25]
+			street = Street.new(landmarks)
+			vehicle = Vehicle.new(startPoint, endPoint)
+			sensor = Sensor.new(error)
+			vehicle.traverse(street, sensor)
+			expect(vehicle.getTraversal.length).to eq(endPoint - startPoint + 1)
+		end
+	end
+end
+
+error = 1
+RSpec.describe getOutput(error) do
+	describe "#getOutput(error)" do
+		it "returns the traversal list" do
+			traversal = getOutput(error)
+			expect(traversal).to be_truthy
+		end
+	end
+end

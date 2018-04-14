@@ -24,9 +24,15 @@ class Vehicle
 	@@endPoint = 0
 	@@traversal = Array.new(0)
 	def initialize(startPoint, endPoint)
-		@@startPoint = startPoint
-		@@endPoint = endPoint
-		@@traversal = Array.new(endPoint - startPoint + 1, 0)
+		begin
+			if startPoint > endPoint
+				raise ArgumentError.new("Start Point is Greater than End Point")
+			else
+				@@startPoint = startPoint
+				@@endPoint = endPoint
+				@@traversal = Array.new(endPoint - startPoint + 1, 0)
+			end
+		end
 	end
 
 	def getTraversal()
