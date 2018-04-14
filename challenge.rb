@@ -84,9 +84,12 @@ def getInput()
 end
 
 def getOutput(error)
-	street = Street.new([1,5,12,18,25])
+	startPoint = 1
+	endPoint = 30
+	landmark = [1,5,12,18,25]
+	street = Street.new(landmark)
 	sensor = Sensor.new(error)
-	vehicle = Vehicle.new(1, 30)
+	vehicle = Vehicle.new(startPoint, endPoint)
 	vehicle.traverse(street, sensor)
 	traversal = vehicle.getTraversal()
 	return traversal
