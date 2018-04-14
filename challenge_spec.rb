@@ -40,30 +40,37 @@ RSpec.describe Vehicle do
 			expect(vehicle.getEndPoint).to eq(endPoint)
 		end
 	end
+	before do	
+		@error = 1
+		@startPoint = 2
+		@endPoint = 8
+		@landmarks = [1,5,12,18,25]
+		@street = Street.new(@landmarks)
+		@vehicle = Vehicle.new(@startPoint, @endPoint)
+		@sensor = Sensor.new(@error)
+		@vehicle.traverse(@street, @sensor)
+		@traversal = @vehicle.getTraversal()
+	end
 	describe "#getTraversal" do
 		it "returns the traversal list" do
-			error = 1
-			startPoint = 2
-			endPoint = 8
-			landmarks = [1,5,12,18,25]
-			street = Street.new(landmarks)
-			vehicle = Vehicle.new(startPoint, endPoint)
-			sensor = Sensor.new(error)
-			vehicle.traverse(street, sensor)
-			expect(vehicle.getTraversal.length).to be > 0
+			expect(@traversal.length).to be > 0
 		end
 	end
 	describe "#getTraversal" do
 		it "the length of the traversal list should match the length difference between start and end points plus 1" do
-			error = 1
-			startPoint = 2
-			endPoint = 8
-			landmarks = [1,5,12,18,25]
-			street = Street.new(landmarks)
-			vehicle = Vehicle.new(startPoint, endPoint)
-			sensor = Sensor.new(error)
-			vehicle.traverse(street, sensor)
-			expect(vehicle.getTraversal.length).to eq(endPoint - startPoint + 1)
+			expect(@traversal.length).to eq(@endPoint - @startPoint + 1)
+		end
+	end
+	describe "#getTraversal" do
+		it "the traversal list must only contain 1s or 0s" do
+			flag = 0
+			for i in 0..@traversal.length-1
+				if @traversal[i] !=0 && @traversal[i] != 1
+					flag = 1
+					break
+				end
+			end
+			expect(flag).to eq(0)
 		end
 	end
 end
